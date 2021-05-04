@@ -173,6 +173,31 @@ Settings for {% if display_title %}{{ display_title }}{% else %}{{ snap_title }}
       </div>
 
       <div class="row p-form__group">
+        <hr class="u-no-margin--bottom">
+      </div>
+
+      <div class="row p-form__group">
+        <div class="col-2">
+          <label class="p-form__label">Upload metadata on release:</label>
+        </div>
+        <div class="col-8">
+          <div class="p-form__control">
+            <input
+              type="checkbox"
+              name="metadata"
+              id="upload-metadata"
+              {% if metadata %}
+              checked="checked"
+              {% endif %}
+              value="metadata" />
+            <label for="upload-metadata">
+              <span class="p-form-help-text">The information on the Listing page of this snap will be automatically updated to the version in snapcraft.yaml of the latest revision pushed to the stable channel. If you manually edit the Listing page, the automatic updates will be turned off. <a class="p-link--external" href="/docs/snapcraft-top-level-metadata">Learn more</a>.</span>
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <div class="row p-form__group">
         <hr class="u-no-margin--bottom" />
       </div>
 
