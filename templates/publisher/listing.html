@@ -76,6 +76,16 @@ Listing details for {% if display_title %}{{ display_title }}{% else %}{{ snap_t
       </div>
       {% endif %}
 
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+          <div class="u-fixed-width">
+            <div class="p-notification--caution">
+              <p class="p-notification__response">Information here was automatically updated to the latest version of the snapcraft.yaml released to the stable channel. <a class="p-link--external" href="/docs/snapcraft-top-level-metadata">Learn more</a>.</p>
+            </div>
+          </div>
+        {% endif %}
+      {% endwith %}
+
       <div class="u-fixed-width">
         <h2 class="p-heading--4">
           Listing details
