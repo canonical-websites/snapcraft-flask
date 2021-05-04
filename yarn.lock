@@ -1395,6 +1395,11 @@
     remark "^13.0.0"
     unist-util-find-all-after "^3.0.2"
 
+"@tarekraafat/autocomplete.js@9.1.1":
+  version "9.1.1"
+  resolved "https://registry.yarnpkg.com/@tarekraafat/autocomplete.js/-/autocomplete.js-9.1.1.tgz#b992214e3fff4c7a721d44d06583a519844aa8b1"
+  integrity sha512-o97RdWKanAxjG88OFr+9q2CEJcpiRccJKYeb4j66WiifIO9Z/2nNncbxcAVEpkAPw9FzX8bXyHc33L8qcFCwuQ==
+
 "@testing-library/dom@^7.28.1":
   version "7.29.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-7.29.1.tgz#a08ebeb26b2ea859b1621ff9642d114c1f04fe3a"
