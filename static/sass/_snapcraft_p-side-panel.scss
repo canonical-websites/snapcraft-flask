@@ -19,4 +19,10 @@
     box-shadow: 0 0 16px 1px rgba(51, 51, 51, 0.2);
     display: block;
   }
+
+  .p-side-panel__actions {
+    bottom: 0;
+    position: absolute;
+    right: 1.5rem;
+  }
 }

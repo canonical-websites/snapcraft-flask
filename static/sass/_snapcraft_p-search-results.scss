@@ -1,0 +1,55 @@
+@mixin snapcraft-p-search-results {
+  .p-search {
+    position: relative;
+
+    #autoComplete_list {
+      background-color: $color-x-light;
+      box-shadow: 0 1px 5px 1px rgba(51, 51, 51, 0.2);
+      left: 0;
+      margin: 0;
+      outline: 0;
+      padding: 0;
+      position: absolute;
+      right: 0;
+      top: 100%;
+      z-index: 1000;
+    }
+
+    .autoComplete_result {
+      background-color: #fff;
+      list-style: none;
+      overflow: hidden;
+      padding: 0.25rem 1rem;
+      text-align: left;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    .autoComplete_result:hover,
+    .autoComplete_selected {
+      background-color: $color-light;
+      cursor: pointer;
+    }
+  }
+
+  .p-search__selections {
+    margin-top: 1rem;
+
+    .p-search__selection {
+      background-color: $color-light;
+      border: 1px solid $color-mid-x-light;
+      border-radius: 2px;
+      margin-bottom: 1rem;
+      padding: 0.25rem 1rem;
+      position: relative;
+    }
+
+    .p-search__selection-delete {
+      padding-left: 0;
+      padding-right: 0;
+      position: absolute;
+      right: 0.5rem;
+      top: 0.25rem;
+    }
+  }
+}

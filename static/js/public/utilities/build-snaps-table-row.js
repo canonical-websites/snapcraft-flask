@@ -1,13 +1,16 @@
 import { format } from "date-fns";
 
-function buildSnapsTableRow(snaps, store) {
+function buildSnapsTableRow(snaps, store, currentStore) {
   const tableBody = document.querySelector("[data-js-snaps-table-body");
   const tableRowTemplate = document.querySelector("[data-js-snaps-table-row]");
 
   snaps.forEach((snap, index) => {
     const clone = tableRowTemplate.content.cloneNode(true);
-
     const publishedIn = clone.querySelector("[data-js-published-store]");
+    const removeSnapForm = clone.querySelector("[data-js-remove-snap-form]");
+    const removeSnapButton = clone.querySelector(
+      "[data-js-remove-snap-button]"
+    );
 
     if (index === 0) {
       publishedIn.setAttribute("rowspan", snaps.length);
@@ -25,6 +28,28 @@ function buildSnapsTableRow(snaps, store) {
       storeName.appendChild(snapNameLink);
     } else {
       storeName.innerText = snap.name;
+    }
+
+    if (store.id !== currentStore.id) {
+      removeSnapButton.disabled = false;
+
+      const parent = removeSnapButton.closest("[data-js-remove-snap-tooltip]");
+      const child = clone.querySelector(".p-tooltip__message");
+      parent.removeChild(child);
+
+      removeSnapForm.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const form = event.target;
+        const snapData = {
+          remove: [{ name: snap.name }],
+        };
+
+        const snapsHiddenField = form.querySelector("[name='snaps']");
+        snapsHiddenField.value = JSON.stringify(snapData);
+
+        form.submit();
+      });
     }
 
     const latestReleaseVersion = clone.querySelector(

@@ -6,6 +6,7 @@ from canonicalwebteam.store_api.exceptions import (
     StoreApiResponseErrorList,
 )
 from canonicalwebteam.store_api.stores.snapstore import SnapStoreAdmin
+from flask.json import jsonify
 from webapp.api.exceptions import ApiError
 from webapp.decorators import login_required
 
@@ -40,6 +41,23 @@ def get_stores():
     return flask.redirect(
         flask.url_for(".get_settings", store_id=stores[0]["id"])
     )
+
+
+@admin.route("/admin/<store_id>/snaps/search")
+@login_required
+def get_snaps_search(store_id):
+    try:
+        snaps = admin_api.get_store_snaps(
+            flask.session,
+            store_id,
+            flask.request.args.get("q"),
+        )
+    except StoreApiResponseErrorList as api_response_error_list:
+        return _handle_error_list(api_response_error_list.errors)
+    except (StoreApiError, ApiError) as api_error:
+        return _handle_error(api_error)
+
+    return jsonify(snaps)
 
 
 @admin.route("/admin/<store_id>/snaps")
@@ -102,7 +120,7 @@ def post_manage_store_snaps(store_id):
         return _handle_error(api_error)
 
     return flask.redirect(
-        flask.url_for(".get_manage_store_snaps", store_id=store_id)
+        flask.url_for(".get_store_snaps", store_id=store_id)
     )
 
 

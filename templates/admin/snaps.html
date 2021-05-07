@@ -22,9 +22,17 @@
 <div class="p-side-panel" data-js-side-panel>
   <div class="p-side-panel__inner">
     <h4>Add a snap to {{ store.name }}</h4>
-    <div class="u-align--right">
-      <button type="button" class="p-button--neutral" data-js-close-side-panel-btn>Cancel</button>
-      <button type="button" class="p-button--positive" disabled>Add snap</button>
+    <div class="p-search">
+      <input type="search" autocomplete="off" id="autoComplete" class="u-no-margin--bottom" data-js-snaps-search placeholder="Search available snaps">
+    </div>
+    <div class="p-search__selections" data-js-snaps-to-add></div>
+    <div class="u-align--right p-side-panel__actions">
+      <form action="/admin/{{ store.id }}/snaps/manage" method="post" data-js-add-snaps-form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="snaps" id="snaps" value="">
+        <button type="button" class="p-button--neutral" data-js-close-side-panel-btn>Cancel</button>
+        <button type="submit" class="p-button--positive u-no-margin--right" data-js-add-snaps-button disabled>Add snap</button>
+      </form>
     </div>
   </div>
 </div>
@@ -53,14 +61,28 @@
     </td>
     <td aria-label="Publisher" data-js-collaborators></td>
     <td aria-label="Actions" class="u-align--right" style="overflow: visible;" data-js-actions>
-      <span class="p-tooltip--left" aria-describedby="">
-        <button class="p-button--base u-no-margin--bottom u-no-margin--right u-no-padding" disabled>
-          <i class="p-icon--delete">Delete</i>
-        </button>
-        <span class="p-tooltip__message" role="tooltip" id="">You can only remove snaps from other stores</span>
-      </span>
+      <form action="/admin/{{ store.id }}/snaps/manage" method="post" data-js-remove-snap-form>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <input type="hidden" name="snaps" value="">
+        <span class="p-tooltip--left" data-js-remove-snap-tooltip>
+          <button class="p-button--base u-no-margin--bottom u-no-margin--right u-no-padding" data-js-remove-snap-button disabled>
+            <i class="p-icon--delete">Delete</i>
+          </button>
+          <span class="p-tooltip__message" role="tooltip">You can only remove snaps from other stores</span>
+        </span>
+      </form>
     </td>
   </tr>
+</template>
+
+<template data-js-snap-to-add>
+  <div class="p-search__selection">
+    <div data-js-snap-name></div>
+    <div><small data-js-snap-store></small></div>
+    <button type="button" class="p-search__selection-delete p-button--base is-dense" data-js-remove-snap>
+      <i class="p-icon--delete"></i>
+    </button>
+  </div>
 </template>
 {% endblock %}
 
@@ -82,12 +104,19 @@
       const openSidePanelButton = document.querySelector("[data-js-open-side-panel-btn]");
       const closeSidePanelButton = document.querySelector("[data-js-close-side-panel-btn]");
 
+      const snapsSearchField = document.querySelector("[data-js-snaps-search]");
+      const snapsToAdd = document.querySelector("[data-js-snaps-to-add]");
+      const addSnapsSubmitButton = document.querySelector("[data-js-add-snaps-button]")
+
       openSidePanelButton.addEventListener("click", () => {
         sidePanel.classList.add("p-side-panel--open");
       });
 
       closeSidePanelButton.addEventListener("click", () => {
         sidePanel.classList.remove("p-side-panel--open");
+        snapsSearchField.value = "";
+        snapsToAdd.innerHTML = "";
+        addSnapsSubmitButton.disabled = true;
       });
     });
   });
