@@ -1,7 +1,7 @@
 # App dependencies
 canonicalwebteam.flask-base==0.9.0
 canonicalwebteam.candid==0.9.0
-canonicalwebteam.discourse==2.1.0
+canonicalwebteam.discourse==3.0.8
 canonicalwebteam.blog==6.3.1
 canonicalwebteam.search==1.0.0
 canonicalwebteam.image-template==1.3.1
